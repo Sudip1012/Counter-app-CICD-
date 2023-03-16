@@ -50,6 +50,27 @@ pipeline{
                 }
             }
         }
+        stage("Uplode file to repo"){
+            steps{
+                script{
+                 nexusArtifactUploader artifacts: [
+                    [
+                        artifactId: 'springboot', 
+                        classifier: '', 
+                        file: 'target/Uber.jar', 
+                        type: 'jar'
+                        ]
+                    ],
+                     credentialsId: 'nexus-auth',
+                     groupId: 'com.example',
+                     nexusUrl: '34.125.242.107:8081',
+                     nexusVersion: 'nexus2', 
+                     protocol: 'http',
+                     repository: 'Demo-Maven', 
+                     version: '1.0.0'
+                }
+            }
+        }
   
 }
 }
