@@ -85,6 +85,17 @@ pipeline{
                 }
             }
         }
+        stage("Docker push Image"){
+            steps{
+                script{
+                  withCredentials([string(credentialsId: 'docker-cred', variable: 'dockercreds')]) {
+                    sh 'docker login -u sudip589 -p ${dockercreds}'
+                    sh 'docker image push sudip589/$JOB_NAME:v1.$BUILD_ID'
+                    sh 'docker image push sudip589/$JOB_NAME:latest'
+                  }
+                }
+            }
+        }
   
 }
 }
